@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Facility Manager</title>
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body class="auth-container">
+    <div class="auth-card">
+        <div style="margin-bottom: 2rem;">
+            <h1 style="color: var(--primary-color); font-size: 2rem;" id="title">Facility Manager</h1>
+            <p style="color: var(--text-muted);" id="subtitle">Create a new account</p>
+        </div>
+
+        <div id="registrationFormContainer">
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername" id="labelUser">Username</label>
+                    <input type="text" id="regUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail" id="labelEmail">Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword" id="labelPass">Password</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword" id="labelConfirm">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="btnRegister">Register</button>
+                <div id="regError" style="color: red; margin-top: 1rem; display: none;"></div>
+            </form>
+        </div>
+
+        <div id="confirmationMessage" style="display: none; padding: 2rem;">
+            <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">✉️</div>
+            <h3 style="margin-bottom: 1rem;">Confirm your Email</h3>
+            <p style="color: var(--text-muted);">We've sent a confirmation link to <strong id="sentEmail"></strong>.
+                Please check your inbox.</p>
+            <button class="btn btn-primary" style="margin-top: 1.5rem;" onclick="location.href='/login.html'">Back to
+                Login</button>
+        </div>
+
+        <div style="margin-top: 2rem; font-size: 0.9rem;">
+            <a href="/login.html" style="color: var(--primary-color); text-decoration: none;" id="linkLogin">Already
+                have an account? Login</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { I18n } from './src/i18n.js';
+
+        // Apply translations
+        document.getElementById('subtitle').textContent = I18n.t('createAccount');
+        document.getElementById('labelUser').textContent = I18n.t('username');
+        document.getElementById('labelEmail').textContent = I18n.t('email');
+        document.getElementById('labelPass').textContent = I18n.t('password');
+        document.getElementById('labelConfirm').textContent = I18n.t('confirmPassword');
+        document.getElementById('btnRegister').textContent = I18n.t('register');
+        document.getElementById('linkLogin').textContent = I18n.t('alreadyHaveAccount');
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPassword').value;
+            const conf = document.getElementById('confirmPassword').value;
+
+            if (pass !== conf) {
+                const error = document.getElementById('regError');
+                error.textContent = "Passwords do not match";
+                error.style.display = 'block';
+                return;
+            }
+
+            // Simulate registration & email confirmation
+            document.getElementById('registrationFormContainer').style.display = 'none';
+            document.getElementById('sentEmail').textContent = email;
+            document.getElementById('confirmationMessage').style.display = 'block';
+            document.getElementById('subtitle').style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

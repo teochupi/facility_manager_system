@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Facility Manager</title>
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar will be injected by main.js -->
+        <aside id="sidebar" class="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="pageTitle">Dashboard</h2>
+                <div class="user-info" style="display: flex; align-items: center; gap: 15px;">
+                    <button class="btn btn-primary" onclick="location.href='/new-request.html'">+ Request</button>
+                    <div class="user-profile">
+                        <span id="userName">User Name</span>
+                        <div class="avatar" id="userAvatar">U</div>
+                        <div class="dropdown-menu">
+                            <a href="/admin.html" class="dropdown-item" id="adminLink">Configuration</a>
+                            <a href="#" class="dropdown-item">About Us</a>
+                            <a href="#" class="dropdown-item" id="logoutBtn">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="stats-grid">
+                    <div class="stat-card orange">
+                        <div class="stat-info">
+                            <div class="count" id="countPending">0</div>
+                            <div>Orders Needing Attention</div>
+                        </div>
+                        <div class="stat-icon">➔</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-info">
+                            <div class="count" id="countOpen">1</div>
+                            <div>My Open Orders</div>
+                        </div>
+                        <div class="stat-icon">➔</div>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <div class="table-header">
+                        <h3>Recently Entered Requests</h3>
+                        <a href="/history.html" style="color: white; text-decoration: none; font-size: 0.9rem;">View
+                            History</a>
+                    </div>
+                    <table id="requestsTable">
+                        <thead>
+                            <tr>
+                                <th>WO Number</th>
+                                <th>Date Entered</th>
+                                <th>Building</th>
+                                <th>Problem Description</th>
+                                <th>Status</th>
+                                <th>Requestor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsBody">
+                            <!-- Content injected by main.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+</body>
+
+</html>

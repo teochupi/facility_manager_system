@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request History - Facility Manager</title>
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside id="sidebar" class="sidebar"></aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>Request History</h2>
+                <div class="user-profile">
+                    <span id="userName">User Name</span>
+                    <div class="avatar" id="userAvatar">U</div>
+                    <div class="dropdown-menu">
+                        <a href="/admin.html" class="dropdown-item" id="adminLink">Configuration</a>
+                        <a href="#" class="dropdown-item">About Us</a>
+                        <a href="#" class="dropdown-item" id="logoutBtn">Logout</a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="data-table-container">
+                    <div class="table-header">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <h3>History</h3>
+                            <input type="text" id="historySearch" placeholder="Search by WO or Building..."
+                                style="padding: 0.4rem; border-radius: 4px; border: none;">
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>WO Number</th>
+                                <th>Date</th>
+                                <th>Building</th>
+                                <th>Office</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <!-- Content injected by script -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { DB } from './src/db.js';
+        import './src/main.js';
+
+        const renderHistory = (filter = '') => {
+            const requests = DB.getRequests();
+            const body = document.getElementById('historyBody');
+            const filtered = requests.filter(r =>
+                r.id.toLowerCase().includes(filter.toLowerCase()) ||
+                r.building.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            body.innerHTML = filtered.map(req => `
+        <tr>
+          <td style="color: var(--primary-color); font-weight: bold;">${req.id}</td>
+          <td>${req.date}</td>
+          <td>${req.building}</td>
+          <td>${req.office}</td>
+          <td>${req.problemType}</td>
+          <td><span class="status-badge status-${req.status.toLowerCase()}">${req.status}</span></td>
+        </tr>
+      `).join('');
+        };
+
+        document.getElementById('historySearch').addEventListener('input', (e) => {
+            renderHistory(e.target.value);
+        });
+
+        renderHistory();
+    </script>
+</body>
+
+</html>
