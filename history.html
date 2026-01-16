@@ -115,7 +115,7 @@
                     <td>${req.date}</td>
                     <td>${I18n.t(req.building)}</td>
                     <td>${req.office}</td>
-                    <td>${I18n.t(req.problemType)}</td>
+                    <td>${I18n.t(req.problemType)} ${req.attachments && req.attachments.length > 0 ? '📎' : ''}</td>
                     <td><span class="status-badge status-${req.status.toLowerCase()}">${I18n.t(req.status)}</span></td>
                 </tr>
             `).join('');

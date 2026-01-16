@@ -67,6 +67,18 @@
                             <textarea id="description" rows="4" required></textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label id="lblAttachments">Attachments</label>
+                            <input type="file" id="attachmentInput" style="display: none;">
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <button type="button" class="btn btn-secondary" style="background: #eee; color: #333;"
+                                    onclick="document.getElementById('attachmentInput').click()"
+                                    id="btnChooseFile">Choose File</button>
+                                <span id="fileName" style="font-size: 0.9rem; color: var(--text-muted);">No file
+                                    chosen</span>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary btn-block" id="btnSubmit">Submit Request</button>
                     </form>
                 </div>
@@ -92,7 +104,10 @@
         document.getElementById('lblDesc').textContent = I18n.t('description');
         document.getElementById('btnSubmit').textContent = I18n.t('submit');
 
-        // Dynamic options translations (optional if mapped)
+        document.getElementById('lblAttachments').textContent = I18n.t('attachments');
+        document.getElementById('btnChooseFile').textContent = I18n.t('chooseFile');
+        document.getElementById('fileName').textContent = I18n.t('noFile');
+
         document.getElementById('optElec').textContent = I18n.t('electrical');
         document.getElementById('optHvac').textContent = I18n.t('hvac');
         document.getElementById('optPlum').textContent = I18n.t('plumbing');
@@ -106,13 +121,19 @@
         const officeGroup = document.getElementById('officeGroup');
         const officeSelect = document.getElementById('officeSelect');
         const requestForm = document.getElementById('requestForm');
+        const attachmentInput = document.getElementById('attachmentInput');
+        const fileNameSpan = document.getElementById('fileName');
+
+        attachmentInput.addEventListener('change', (e) => {
+            fileNameSpan.textContent = e.target.files.length > 0 ? e.target.files[0].name : I18n.t('noFile');
+        });
 
         const data = DB.getData();
 
         data.buildings.forEach(b => {
             const opt = document.createElement('option');
             opt.value = b.id;
-            opt.textContent = b.name;
+            opt.textContent = I18n.t(b.name);
             buildingSelect.appendChild(opt);
         });
 
@@ -153,21 +174,32 @@
             }
         });
 
-        requestForm.addEventListener('submit', (e) => {
+        requestForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const user = Auth.getUser();
+
+            let attachmentBase64 = null;
+            if (attachmentInput.files.length > 0) {
+                attachmentBase64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(attachmentInput.files[0]);
+                });
+            }
+
             const newRequest = {
                 userId: user.id,
                 building: buildingSelect.options[buildingSelect.selectedIndex].text,
                 floor: floorSelect.options[floorSelect.selectedIndex].text,
                 office: officeSelect.options[officeSelect.selectedIndex].text,
                 problemType: document.getElementById('problemType').value,
-                description: document.getElementById('description').value
+                description: document.getElementById('description').value,
+                attachments: attachmentBase64 ? [{ name: attachmentInput.files[0].name, data: attachmentBase64 }] : []
             };
 
             DB.createRequest(newRequest);
             alert(I18n.getLang() === 'bg' ? 'Заявката е изпратена успешно!' : 'Request submitted successfully!');
-            window.location.href = '/dashboard.html';
+            window.location.href = 'dashboard.html';
         });
     </script>
 </body>
