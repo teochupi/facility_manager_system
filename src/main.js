@@ -61,7 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const requests = DB.getRequests();
     requestsBody.innerHTML = requests.map(req => `
       <tr>
-        <td style="color: var(--primary-color); font-weight: bold;">${req.id}</td>
+        <td style="color: var(--primary-color); font-weight: bold;">
+          <a href="history.html?wo=${req.id}" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--primary-color);">${req.id}</a>
+        </td>
         <td>${req.date}</td>
         <td>${req.building}</td>
         <td>${req.problemType}: ${req.description}</td>
@@ -69,6 +71,19 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${req.userId === user.id ? (I18n.getLang() === 'bg' ? 'Вие' : 'You') : (I18n.getLang() === 'bg' ? 'Система' : 'System')}</td>
       </tr>
     `).join('');
+
+    // Add click events to stat cards
+    const pendingCard = document.querySelector('.orange.stat-card');
+    const openCard = document.querySelector('.blue.stat-card');
+
+    if (pendingCard) {
+      pendingCard.style.cursor = 'pointer';
+      pendingCard.addEventListener('click', () => window.location.href = 'history.html?status=HLD');
+    }
+    if (openCard) {
+      openCard.style.cursor = 'pointer';
+      openCard.addEventListener('click', () => window.location.href = 'history.html?status=OPEN');
+    }
 
     // Update stats
     const countPending = document.getElementById('countPending');
