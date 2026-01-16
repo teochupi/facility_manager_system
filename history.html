@@ -19,7 +19,7 @@
                     <span id="userName">User Name</span>
                     <div class="avatar" id="userAvatar">U</div>
                     <div class="dropdown-menu">
-                        <a href="/admin.html" class="dropdown-item" id="adminLink">Configuration</a>
+                        <a href="admin.html" class="dropdown-item" id="adminLink">Configuration</a>
                         <a href="#" class="dropdown-item" id="aboutUsLink">About Us</a>
                         <a href="#" class="dropdown-item" id="logoutBtn">Logout</a>
                     </div>
@@ -71,24 +71,29 @@
         document.getElementById('thStatus').textContent = I18n.t('status');
         document.getElementById('aboutUsLink').textContent = I18n.t('aboutUs');
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const typeFilter = urlParams.get('type');
+
         const renderHistory = (filter = '') => {
             const requests = DB.getRequests();
             const body = document.getElementById('historyBody');
-            const filtered = requests.filter(r =>
-                r.id.toLowerCase().includes(filter.toLowerCase()) ||
-                r.building.toLowerCase().includes(filter.toLowerCase())
-            );
+            const filtered = requests.filter(r => {
+                const matchesSearch = r.id.toLowerCase().includes(filter.toLowerCase()) ||
+                    r.building.toLowerCase().includes(filter.toLowerCase());
+                const matchesType = typeFilter ? r.problemType.toLowerCase().includes(typeFilter.toLowerCase()) : true;
+                return matchesSearch && matchesType;
+            });
 
             body.innerHTML = filtered.map(req => `
-        <tr>
-          <td style="color: var(--primary-color); font-weight: bold;">${req.id}</td>
-          <td>${req.date}</td>
-          <td>${req.building}</td>
-          <td>${req.office}</td>
-          <td>${req.problemType}</td>
-          <td><span class="status-badge status-${req.status.toLowerCase()}">${req.status}</span></td>
-        </tr>
-      `).join('');
+                <tr>
+                    <td style="color: var(--primary-color); font-weight: bold;">${req.id}</td>
+                    <td>${req.date}</td>
+                    <td>${req.building}</td>
+                    <td>${req.office}</td>
+                    <td>${req.problemType}</td>
+                    <td><span class="status-badge status-${req.status.toLowerCase()}">${req.status}</span></td>
+                </tr>
+            `).join('');
         };
 
         document.getElementById('historySearch').addEventListener('input', (e) => {

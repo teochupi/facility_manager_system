@@ -30,18 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
         Facility Manager
       </div>
       <ul class="sidebar-menu">
-        <li><a href="/dashboard.html" class="${window.location.pathname.includes('dashboard') ? 'active' : ''}"><span>${I18n.t('dashboard')}</span></a></li>
-        <li><a href="/new-request.html" class="${window.location.pathname.includes('new-request') ? 'active' : ''}"><span>${I18n.t('newRequest')}</span></a></li>
-        <li><a href="/history.html" class="${window.location.pathname.includes('history') ? 'active' : ''}"><span>${I18n.t('history')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('disinfection')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('furniture')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('trashRemoval')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('urgentCleanup')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('electrical')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('hvac')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('interiorLights')}</span></a></li>
-        <li><a href="#"><span>${I18n.t('plumbing')}</span></a></li>
-        ${user.role === 'admin' ? '<li><a href="/admin.html" class="' + (window.location.pathname.includes('admin') ? 'active' : '') + '"><span>' + I18n.t('systemConfig') + '</span></a></li>' : ''}
+        <li><a href="dashboard.html" class="${window.location.pathname.includes('dashboard') ? 'active' : ''}"><span>${I18n.t('dashboard')}</span></a></li>
+        <li><a href="new-request.html" class="${window.location.pathname.includes('new-request') ? 'active' : ''}"><span>${I18n.t('newRequest')}</span></a></li>
+        <li><a href="history.html" class="${window.location.pathname.includes('history') ? 'active' : ''}"><span>${I18n.t('history')}</span></a></li>
+        <li><a href="history.html?type=Disinfection"><span>${I18n.t('disinfection')}</span></a></li>
+        <li><a href="history.html?type=Furniture"><span>${I18n.t('furniture')}</span></a></li>
+        <li><a href="history.html?type=Trash"><span>${I18n.t('trashRemoval')}</span></a></li>
+        <li><a href="history.html?type=Cleanup"><span>${I18n.t('urgentCleanup')}</span></a></li>
+        <li><a href="history.html?type=Electrical"><span>${I18n.t('electrical')}</span></a></li>
+        <li><a href="history.html?type=HVAC"><span>${I18n.t('hvac')}</span></a></li>
+        <li><a href="history.html?type=Lighting"><span>${I18n.t('interiorLights')}</span></a></li>
+        <li><a href="history.html?type=Plumbing"><span>${I18n.t('plumbing')}</span></a></li>
+        ${user.role === 'admin' ? '<li><a href="admin.html" class="' + (window.location.pathname.includes('admin') ? 'active' : '') + '"><span>' + I18n.t('systemConfig') + '</span></a></li>' : ''}
       </ul>
       <div class="lang-switcher-container">
          <button class="lang-btn ${I18n.getLang() === 'en' ? 'active' : ''}" data-lang="en">EN</button>
