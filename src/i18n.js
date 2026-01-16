@@ -71,7 +71,11 @@ export const translations = {
         system: "System",
         // Buildings
         building1: "Building 1",
-        building2: "Building 2"
+        building2: "Building 2",
+        building3: "Building 3",
+        attachments: "Attachments",
+        chooseFile: "Choose File",
+        noFile: "No file chosen"
     },
     bg: {
         dashboard: "Табло",
@@ -145,7 +149,11 @@ export const translations = {
         system: "Система",
         // Buildings
         building1: "Сграда 1",
-        building2: "Сграда 2"
+        building2: "Сграда 2",
+        building3: "Сграда 3",
+        attachments: "Прикачени файлове",
+        chooseFile: "Избери файл",
+        noFile: "Няма избран файл"
     }
 };
 

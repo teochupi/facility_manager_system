@@ -2,16 +2,19 @@
 const INITIAL_DATA = {
   buildings: [
     { id: 1, name: "Building 1" },
-    { id: 2, name: "Building 2" }
+    { id: 2, name: "Building 2" },
+    { id: 3, name: "Building 3" }
   ],
   floors: [
     { id: 1, buildingId: 1, number: "1" },
     { id: 2, buildingId: 1, number: "2" },
-    { id: 3, buildingId: 2, number: "G" }
+    { id: 3, buildingId: 2, number: "G" },
+    { id: 4, buildingId: 3, number: "1" }
   ],
   offices: [
     { id: 1, floorId: 1, number: "101" },
-    { id: 2, floorId: 1, number: "102" }
+    { id: 2, floorId: 1, number: "102" },
+    { id: 3, floorId: 4, number: "301" }
   ],
   requests: [
     {
@@ -21,17 +24,21 @@ const INITIAL_DATA = {
       floor: "1",
       office: "101",
       problemType: "Interior Repair",
-      description: "Broken chair in the corner.",
+      description: "Broken chair / Счупен стол",
       status: "HLD",
-      date: "2025-12-23"
+      date: "2026-01-16",
+      attachments: []
     }
   ]
 };
 
 export class DB {
   static init() {
-    if (!localStorage.getItem('fm_data')) {
+    // Force reset for specific update
+    if (!localStorage.getItem('fm_data_v2')) {
+      localStorage.removeItem('fm_data');
       localStorage.setItem('fm_data', JSON.stringify(INITIAL_DATA));
+      localStorage.setItem('fm_data_v2', 'true'); // Version tag to prevent infinite reset
     }
   }
 
