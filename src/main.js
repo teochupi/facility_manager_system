@@ -42,16 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <li><a href="#"><span>${I18n.t('plumbing')}</span></a></li>
         ${user.role === 'admin' ? '<li><a href="/admin.html" class="' + (window.location.pathname.includes('admin') ? 'active' : '') + '"><span>' + I18n.t('systemConfig') + '</span></a></li>' : ''}
       </ul>
-      <div style="padding: 1rem; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1);">
-         <select id="langSwitcher" style="width: 100%; background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 5px;">
-            <option value="en" ${I18n.getLang() === 'en' ? 'selected' : ''}>English</option>
-            <option value="bg" ${I18n.getLang() === 'bg' ? 'selected' : ''}>Български</option>
-         </select>
+      <div class="lang-switcher-container">
+         <button class="lang-btn ${I18n.getLang() === 'en' ? 'active' : ''}" data-lang="en">EN</button>
+         <button class="lang-btn ${I18n.getLang() === 'bg' ? 'active' : ''}" data-lang="bg">BG</button>
       </div>
     `;
 
-    document.getElementById('langSwitcher').addEventListener('change', (e) => {
-      I18n.setLang(e.target.value);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        I18n.setLang(e.target.dataset.lang);
+      });
     });
   }
 

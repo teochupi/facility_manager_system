@@ -14,12 +14,12 @@
 
         <main class="main-content">
             <header class="top-bar">
-                <h2>System Configuration</h2>
+                <h2 id="pageTitle">System Configuration</h2>
                 <div class="user-profile">
                     <span id="userName">User Name</span>
                     <div class="avatar" id="userAvatar">U</div>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">About Us</a>
+                        <a href="#" class="dropdown-item" id="aboutUsLink">About Us</a>
                         <a href="#" class="dropdown-item" id="logoutBtn">Logout</a>
                     </div>
                 </div>
@@ -30,50 +30,49 @@
 
                     <!-- Add Building -->
                     <div class="data-table-container" style="padding: 1.5rem;">
-                        <h3>Add New Building</h3>
+                        <h3 id="hAddBuilding">Add New Building</h3>
                         <form id="addBuildingForm" style="margin-top: 1rem;">
                             <div class="form-group">
-                                <input type="text" id="newBuildingName" placeholder="Building Name" required>
+                                <input type="text" id="newBuildingName" placeholder="..." required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Building</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddB">Add Building</button>
                         </form>
                     </div>
 
                     <!-- Add Floor -->
                     <div class="data-table-container" style="padding: 1.5rem;">
-                        <h3>Add New Floor</h3>
+                        <h3 id="hAddFloor">Add New Floor</h3>
                         <form id="addFloorForm" style="margin-top: 1rem;">
                             <div class="form-group">
                                 <select id="selectBuildingForFloor" required>
-                                    <option value="">Select Building</option>
+                                    <option value="" id="optB1">Select Building</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" id="newFloorNumber" placeholder="Floor Number (e.g. 1st, G, 2)"
-                                    required>
+                                <input type="text" id="newFloorNumber" placeholder="..." required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Floor</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddF">Add Floor</button>
                         </form>
                     </div>
 
                     <!-- Add Office -->
                     <div class="data-table-container" style="padding: 1.5rem;">
-                        <h3>Add New Office/Office Number</h3>
+                        <h3 id="hAddOffice">Add New Office</h3>
                         <form id="addOfficeForm" style="margin-top: 1rem;">
                             <div class="form-group">
                                 <select id="selectBuildingForOffice" required>
-                                    <option value="">Select Building</option>
+                                    <option value="" id="optB2">Select Building</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <select id="selectFloorForOffice" required>
-                                    <option value="">Select Floor</option>
+                                    <option value="" id="optF2">Select Floor</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" id="newOfficeNumber" placeholder="Office Number" required>
+                                <input type="text" id="newOfficeNumber" placeholder="..." required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Add Office</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddO">Add Office</button>
                         </form>
                     </div>
 
@@ -85,20 +84,36 @@
     <script type="module">
         import { DB } from './src/db.js';
         import { Auth } from './src/auth.js';
+        import { I18n } from './src/i18n.js';
         import './src/main.js';
 
-        // Verify Admin
         const user = Auth.getUser();
         if (user.role !== 'admin') {
             window.location.href = '/dashboard.html';
         }
 
+        // Apply translations
+        document.getElementById('pageTitle').textContent = I18n.t('systemConfig');
+        document.getElementById('hAddBuilding').textContent = I18n.t('addBuilding');
+        document.getElementById('hAddFloor').textContent = I18n.t('addFloor');
+        document.getElementById('hAddOffice').textContent = I18n.t('addOffice');
+        document.getElementById('newBuildingName').placeholder = I18n.t('buildingName');
+        document.getElementById('newFloorNumber').placeholder = I18n.t('floorNumber');
+        document.getElementById('newOfficeNumber').placeholder = I18n.t('officeNumber');
+        document.getElementById('btnAddB').textContent = I18n.t('submitAdd');
+        document.getElementById('btnAddF').textContent = I18n.t('submitAdd');
+        document.getElementById('btnAddO').textContent = I18n.t('submitAdd');
+        document.getElementById('optB1').textContent = I18n.t('selectBuilding');
+        document.getElementById('optB2').textContent = I18n.t('selectBuilding');
+        document.getElementById('optF2').textContent = I18n.t('selectFloor');
+        document.getElementById('aboutUsLink').textContent = I18n.t('aboutUs');
+
         const refreshSelects = () => {
             const data = DB.getData();
             const bSelects = [document.getElementById('selectBuildingForFloor'), document.getElementById('selectBuildingForOffice')];
 
-            bSelects.forEach(s => {
-                s.innerHTML = '<option value="">Select Building</option>';
+            bSelects.forEach((s, idx) => {
+                s.innerHTML = `<option value="">${I18n.t('selectBuilding')}</option>`;
                 data.buildings.forEach(b => {
                     const opt = document.createElement('option');
                     opt.value = b.id;
@@ -111,7 +126,7 @@
         document.getElementById('selectBuildingForOffice').addEventListener('change', (e) => {
             const bId = parseInt(e.target.value);
             const fSelect = document.getElementById('selectFloorForOffice');
-            fSelect.innerHTML = '<option value="">Select Floor</option>';
+            fSelect.innerHTML = `<option value="">${I18n.t('selectFloor')}</option>`;
             if (bId) {
                 const data = DB.getData();
                 const floors = data.floors.filter(f => f.buildingId === bId);
@@ -128,7 +143,7 @@
             e.preventDefault();
             const name = document.getElementById('newBuildingName').value;
             DB.addBuilding(name);
-            alert('Building added!');
+            alert(I18n.getLang() === 'bg' ? 'Сграда е добавена!' : 'Building added!');
             document.getElementById('newBuildingName').value = '';
             refreshSelects();
         });
@@ -138,7 +153,7 @@
             const bId = parseInt(document.getElementById('selectBuildingForFloor').value);
             const num = document.getElementById('newFloorNumber').value;
             DB.addFloor(bId, num);
-            alert('Floor added!');
+            alert(I18n.getLang() === 'bg' ? 'Етаж е добавен!' : 'Floor added!');
             document.getElementById('newFloorNumber').value = '';
         });
 
@@ -147,7 +162,7 @@
             const fId = parseInt(document.getElementById('selectFloorForOffice').value);
             const num = document.getElementById('newOfficeNumber').value;
             DB.addOffice(fId, num);
-            alert('Office added!');
+            alert(I18n.getLang() === 'bg' ? 'Офис е добавен!' : 'Office added!');
             document.getElementById('newOfficeNumber').value = '';
         });
 

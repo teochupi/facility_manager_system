@@ -305,6 +305,53 @@ tr:hover {
   color: #155724;
 }
 
+/* Language Switcher */
+.lang-switcher-container {
+  padding: 1rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.lang-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+
+.lang-btn:hover,
+.lang-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.auth-lang-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.auth-lang-switcher .lang-btn {
+  background: var(--white);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.auth-lang-switcher .lang-btn:hover,
+.auth-lang-switcher .lang-btn.active {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {

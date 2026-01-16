@@ -14,13 +14,13 @@
 
         <main class="main-content">
             <header class="top-bar">
-                <h2>Request History</h2>
+                <h2 id="pageTitle">Request History</h2>
                 <div class="user-profile">
                     <span id="userName">User Name</span>
                     <div class="avatar" id="userAvatar">U</div>
                     <div class="dropdown-menu">
                         <a href="/admin.html" class="dropdown-item" id="adminLink">Configuration</a>
-                        <a href="#" class="dropdown-item">About Us</a>
+                        <a href="#" class="dropdown-item" id="aboutUsLink">About Us</a>
                         <a href="#" class="dropdown-item" id="logoutBtn">Logout</a>
                     </div>
                 </div>
@@ -30,20 +30,19 @@
                 <div class="data-table-container">
                     <div class="table-header">
                         <div style="display: flex; gap: 1rem; align-items: center;">
-                            <h3>History</h3>
-                            <input type="text" id="historySearch" placeholder="Search by WO or Building..."
-                                style="padding: 0.4rem; border-radius: 4px; border: none;">
+                            <h3 id="hHistory">History</h3>
+                            <input type="text" id="historySearch" placeholder="...">
                         </div>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>WO Number</th>
-                                <th>Date</th>
-                                <th>Building</th>
-                                <th>Office</th>
-                                <th>Type</th>
-                                <th>Status</th>
+                                <th id="thWO">WO Number</th>
+                                <th id="thDate">Date</th>
+                                <th id="thBuild">Building</th>
+                                <th id="thOffice">Office</th>
+                                <th id="thType">Type</th>
+                                <th id="thStatus">Status</th>
                             </tr>
                         </thead>
                         <tbody id="historyBody">
@@ -57,7 +56,20 @@
 
     <script type="module">
         import { DB } from './src/db.js';
+        import { I18n } from './src/i18n.js';
         import './src/main.js';
+
+        // Apply translations
+        document.getElementById('pageTitle').textContent = I18n.t('history');
+        document.getElementById('hHistory').textContent = I18n.t('history');
+        document.getElementById('historySearch').placeholder = I18n.t('searchHistory');
+        document.getElementById('thWO').textContent = I18n.t('woNumber');
+        document.getElementById('thDate').textContent = I18n.t('dateEntered');
+        document.getElementById('thBuild').textContent = I18n.t('building');
+        document.getElementById('thOffice').textContent = I18n.t('office');
+        document.getElementById('thType').textContent = I18n.t('problemType');
+        document.getElementById('thStatus').textContent = I18n.t('status');
+        document.getElementById('aboutUsLink').textContent = I18n.t('aboutUs');
 
         const renderHistory = (filter = '') => {
             const requests = DB.getRequests();

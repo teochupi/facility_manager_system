@@ -43,7 +43,14 @@ export const translations = {
         noAccount: "Don't have an account? Register",
         searchHistory: "Search by WO or Building...",
         configuration: "Configuration",
-        aboutUs: "About Us"
+        aboutUs: "About Us",
+        addBuilding: "Add Building",
+        addFloor: "Add Floor",
+        addOffice: "Add Office",
+        buildingName: "Building Name",
+        floorNumber: "Floor Number",
+        officeNumber: "Office Number",
+        submitAdd: "Add"
     },
     bg: {
         dashboard: "Табло",
@@ -89,7 +96,14 @@ export const translations = {
         noAccount: "Нямате акаунт? Регистрация",
         searchHistory: "Търси по номер или сграда...",
         configuration: "Конфигурация",
-        aboutUs: "За нас"
+        aboutUs: "За нас",
+        addBuilding: "Добави Сграда",
+        addFloor: "Добави Етаж",
+        addOffice: "Добави Офис/Стая",
+        buildingName: "Име на сграда",
+        floorNumber: "Номер на етаж",
+        officeNumber: "Номер на офис",
+        submitAdd: "Добави"
     }
 };
 

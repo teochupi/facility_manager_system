@@ -9,6 +9,11 @@
 </head>
 
 <body class="auth-container">
+    <div class="auth-lang-switcher">
+        <button class="lang-btn" onclick="localStorage.setItem('fm_lang', 'en'); location.reload()">EN</button>
+        <button class="lang-btn" onclick="localStorage.setItem('fm_lang', 'bg'); location.reload()">BG</button>
+    </div>
+
     <div class="auth-card">
         <div style="margin-bottom: 2rem;">
             <h1 style="color: var(--primary-color); font-size: 2rem;">Facility Manager</h1>
@@ -37,12 +42,6 @@
             style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid #eee; padding-top: 1rem;">
             <p><strong>Demo Access:</strong></p>
             <p>User: demo / demo123 | Admin: admin / demo123</p>
-            <div style="margin-top: 10px;">
-                <button onclick="localStorage.setItem('fm_lang', 'en'); location.reload()"
-                    style="cursor:pointer; border:none; background:none; color:var(--primary-color)">EN</button> |
-                <button onclick="localStorage.setItem('fm_lang', 'bg'); location.reload()"
-                    style="cursor:pointer; border:none; background:none; color:var(--primary-color)">BG</button>
-            </div>
         </div>
     </div>
 
@@ -50,7 +49,6 @@
         import { Auth } from './src/auth.js';
         import { I18n } from './src/i18n.js';
 
-        // Apply translations
         document.getElementById('subtitle').textContent = I18n.t('signInAccount');
         document.getElementById('labelUser').textContent = I18n.t('username');
         document.getElementById('labelPass').textContent = I18n.t('password');
@@ -70,6 +68,12 @@
                 error.textContent = result.message;
                 error.style.display = 'block';
             }
+        });
+
+        // Mark active lang
+        const currentLang = I18n.getLang();
+        document.querySelectorAll('.auth-lang-switcher .lang-btn').forEach(btn => {
+            if (btn.textContent.toLowerCase() === currentLang) btn.classList.add('active');
         });
     </script>
 </body>
