@@ -30,9 +30,6 @@ const INITIAL_DATA = {
 
 export class DB {
   static init() {
-    // If we want to force reset due to your request, we can clear here.
-    // Otherwise it only sets if empty.
-    localStorage.removeItem('fm_data');
     if (!localStorage.getItem('fm_data')) {
       localStorage.setItem('fm_data', JSON.stringify(INITIAL_DATA));
     }

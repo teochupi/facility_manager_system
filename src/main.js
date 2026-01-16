@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (adminLink && user.role !== 'admin') {
     adminLink.style.display = 'none';
   }
+  if (adminLink) adminLink.textContent = I18n.t('configuration');
 
   // Inject Sidebar
   if (sidebar) {
@@ -55,21 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Populate Requests Table
+  // Populate Shared Requests Table Logic (Dashboard)
   if (requestsBody) {
-    // Dynamic Updates for Labels
-    const pendingLabel = document.querySelector('.orange div:last-child');
-    if (pendingLabel) pendingLabel.textContent = I18n.t('ordersNeedingAttention');
-
-    const openLabel = document.querySelector('.blue div:last-child');
-    if (openLabel) openLabel.textContent = I18n.t('myOpenOrders');
-
-    const recentH3 = document.querySelector('.table-header h3');
-    if (recentH3) recentH3.textContent = I18n.t('recentlyEnteredRequests');
-
-    const historyLink = document.querySelector('.table-header a');
-    if (historyLink) historyLink.textContent = I18n.t('viewHistory');
-
     const requests = DB.getRequests();
     requestsBody.innerHTML = requests.map(req => `
       <tr>
@@ -78,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${req.building}</td>
         <td>${req.problemType}: ${req.description}</td>
         <td><span class="status-badge status-${req.status.toLowerCase()}">${req.status}</span></td>
-        <td>${req.userId === user.id ? 'You' : 'System'}</td>
+        <td>${req.userId === user.id ? (I18n.getLang() === 'bg' ? 'Вие' : 'You') : (I18n.getLang() === 'bg' ? 'Система' : 'System')}</td>
       </tr>
     `).join('');
 
