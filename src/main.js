@@ -66,9 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </td>
         <td>${req.date}</td>
         <td>${req.building}</td>
-        <td>${req.problemType}: ${req.description}</td>
-        <td><span class="status-badge status-${req.status.toLowerCase()}">${req.status}</span></td>
-        <td>${req.userId === user.id ? (I18n.getLang() === 'bg' ? 'Вие' : 'You') : (I18n.getLang() === 'bg' ? 'Система' : 'System')}</td>
+        <td>${I18n.t(req.problemType)}: ${req.description}</td>
+        <td><span class="status-badge status-${req.status.toLowerCase()}">${I18n.t(req.status)}</span></td>
+        <td>${req.userId === user.id ? I18n.t('you') : I18n.t('system')}</td>
       </tr>
     `).join('');
 

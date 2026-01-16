@@ -50,7 +50,17 @@ export const translations = {
         buildingName: "Building Name",
         floorNumber: "Floor Number",
         officeNumber: "Office Number",
-        submitAdd: "Add"
+        submitAdd: "Add",
+        // Problem Types
+        cleaning: "Cleaning",
+        other: "Other",
+        interiorRepair: "Interior Repair",
+        // Statuses
+        status_hld: "Pending",
+        status_cmp: "Completed",
+        status_open: "Open",
+        you: "You",
+        system: "System"
     },
     bg: {
         dashboard: "Табло",
@@ -103,7 +113,17 @@ export const translations = {
         buildingName: "Име на сграда",
         floorNumber: "Номер на етаж",
         officeNumber: "Номер на офис",
-        submitAdd: "Добави"
+        submitAdd: "Добави",
+        // Problem Types
+        cleaning: "Почистване",
+        other: "Друго",
+        interiorRepair: "Вътрешен ремонт",
+        // Statuses
+        status_hld: "Изчакваща",
+        status_cmp: "Завършена",
+        status_open: "Отворена",
+        you: "Вие",
+        system: "Система"
     }
 };
 
@@ -118,7 +138,16 @@ export class I18n {
     }
 
     static t(key) {
+        if (!key) return "";
         const lang = this.getLang();
-        return translations[lang][key] || key;
+        // Try exact key, then lowercase, then CamelCase to lowercase mapping
+        const processedKey = key.toString().replace(/\s+/g, '');
+        const finalKey = processedKey.charAt(0).toLowerCase() + processedKey.slice(1);
+
+        return translations[lang][key] ||
+            translations[lang][key.toLowerCase()] ||
+            translations[lang][finalKey] ||
+            translations[lang]['status_' + key.toLowerCase()] ||
+            key;
     }
 }
