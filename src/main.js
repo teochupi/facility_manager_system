@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="history.html?wo=${req.id}" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--primary-color);">${req.id}</a>
         </td>
         <td>${req.date}</td>
-        <td>${req.building}</td>
+        <td>${I18n.t(req.building)}</td>
         <td>${I18n.t(req.problemType)}: ${req.description}</td>
         <td><span class="status-badge status-${req.status.toLowerCase()}">${I18n.t(req.status)}</span></td>
         <td>${req.userId === user.id ? I18n.t('you') : I18n.t('system')}</td>

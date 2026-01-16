@@ -295,7 +295,7 @@ tr:hover {
   font-weight: 600;
 }
 
-.status-hold {
+.status-hld {
   background: #ffeeba;
   color: #856404;
 }
@@ -303,6 +303,11 @@ tr:hover {
 .status-cmp {
   background: #d4edda;
   color: #155724;
+}
+
+.status-open {
+  background: #cce5ff;
+  color: #004085;
 }
 
 /* Language Switcher */

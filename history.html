@@ -113,7 +113,7 @@
                 <tr>
                     <td style="color: var(--primary-color); font-weight: bold;">${req.id}</td>
                     <td>${req.date}</td>
-                    <td>${req.building}</td>
+                    <td>${I18n.t(req.building)}</td>
                     <td>${req.office}</td>
                     <td>${I18n.t(req.problemType)}</td>
                     <td><span class="status-badge status-${req.status.toLowerCase()}">${I18n.t(req.status)}</span></td>

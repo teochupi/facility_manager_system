@@ -55,12 +55,23 @@ export const translations = {
         cleaning: "Cleaning",
         other: "Other",
         interiorRepair: "Interior Repair",
+        disinfection: "Disinfection",
+        furniture: "Furniture",
+        electrical: "Electrical",
+        hvac: "HVAC",
+        interiorLights: "Interior Lights",
+        plumbing: "Plumbing",
+        trashRemoval: "Trash Removal",
+        urgentCleanup: "Urgent Cleanup",
         // Statuses
         status_hld: "Pending",
         status_cmp: "Completed",
         status_open: "Open",
         you: "You",
-        system: "System"
+        system: "System",
+        // Buildings
+        building1: "Building 1",
+        building2: "Building 2"
     },
     bg: {
         dashboard: "Табло",
@@ -118,12 +129,23 @@ export const translations = {
         cleaning: "Почистване",
         other: "Друго",
         interiorRepair: "Вътрешен ремонт",
+        disinfection: "Дезинфекция",
+        furniture: "Мебели",
+        electrical: "Електрозахранване",
+        hvac: "Отопление и Вентилация",
+        interiorLights: "Осветление",
+        plumbing: "ВиК",
+        trashRemoval: "Смитопочистване",
+        urgentCleanup: "Спешно почистване",
         // Statuses
         status_hld: "Изчакваща",
         status_cmp: "Завършена",
         status_open: "Отворена",
         you: "Вие",
-        system: "Система"
+        system: "Система",
+        // Buildings
+        building1: "Сграда 1",
+        building2: "Сграда 2"
     }
 };
 
