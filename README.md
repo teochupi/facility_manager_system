@@ -46,5 +46,3 @@ A modern, responsive web platform for corporate facility management. This system
    npm run build
    ```
 
----
-*Created as a project for the "Software Technologies with AI" Capstone.*
